@@ -37,7 +37,6 @@
 
 	let canvas: null | HTMLCanvasElement;
 	let ctx: null | CanvasRenderingContext2D | undefined;
-	let textbox;
 	const upscaleSize = 200000;
 
 	onMount(() => {
@@ -92,8 +91,9 @@
 
 	const handleMouseMove = (event: MouseEvent) => {
 		const rect = canvas?.getBoundingClientRect();
-		const x = event.clientX - (rect?.left || 0);
-		const y = event.clientY - (rect?.top || 0);
+		const x = (event.clientX - (rect?.left || 0));
+		const y = (event.clientY - (rect?.top || 0));
+		console.log(`mouse is at (${x},${y})`)
 
 		texts.subscribe((items) => {
 			items.forEach((item) => {
