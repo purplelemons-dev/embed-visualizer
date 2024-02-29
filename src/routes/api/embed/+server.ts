@@ -1,7 +1,6 @@
 
 import { OpenAI } from "openai";
 import type { RequestHandler } from "@sveltejs/kit";
-import * as TSNE from 'tsne-js';
 import { PCA } from 'ml-pca';
 
 

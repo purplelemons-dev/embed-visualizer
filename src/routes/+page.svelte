@@ -74,8 +74,8 @@
 			items.forEach((item) => {
 				console.log(item.embedding);
 				// Assuming the embedding has been scaled or mapped appropriately to fit the canvas dimensions
-				const x = item.embedding[0] * 25600; // Use the first dimension for x-coordinate
-				const y = item.embedding[1] * 25600; // Use the second dimension for y-coordinate
+				const x = item.embedding[0] * 30000; // Use the first dimension for x-coordinate
+				const y = item.embedding[1] * 30000; // Use the second dimension for y-coordinate
 				console.log(`drawing: ${x}, ${y}`);
 				ctx?.beginPath();
 				ctx?.arc(x, y, 5, 0, 2 * Math.PI); // Draw a dot
@@ -93,8 +93,8 @@
 
 		texts.subscribe((items) => {
 			items.forEach((item) => {
-				const dotX = item.embedding[0] * 25600;
-				const dotY = item.embedding[1] * 25600;
+				const dotX = item.embedding[0] * 30000;
+				const dotY = item.embedding[1] * 30000;
 
 				// Check if the mouse is over the dot
 				if (Math.sqrt((x - dotX) ** 2 + (y - dotY) ** 2) < 5) {

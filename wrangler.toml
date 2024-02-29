@@ -1,0 +1,13 @@
+
+name = "embed-visualizer"
+account_id = "d7c0f78c25d131d8575cbe63df040d39"
+
+main = "./.svelte-kit/cloudflare/_worker.js"
+site.bucket = "./.svelte-kit/cloudflare"
+
+build.command = "npm run build"
+
+compatibility_date = "2024-02-24"
+workers_dev = false
+
+logpush = true
