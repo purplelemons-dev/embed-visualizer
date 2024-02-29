@@ -25,6 +25,7 @@
 		texts.update((current) => [...current, { text: inputText.slice(0, 50), embedding: embedding }]);
 		drawDots();
 		inputText = '';
+		textbox.focus();
 	};
 
 	//const embeddings: Writable<number[][]> = writable([]);
@@ -36,6 +37,7 @@
 
 	let canvas: null | HTMLCanvasElement;
 	let ctx: null | CanvasRenderingContext2D | undefined;
+	const upscaleSize = 200000;
 
 	onMount(() => {
 		canvas = document.querySelector('canvas');
@@ -43,6 +45,7 @@
 		drawDots();
 
 		canvas?.addEventListener('mousemove', handleMouseMove);
+		textbox = document.querySelector("input");
 	});
 
 	afterUpdate(() => {
@@ -74,8 +77,8 @@
 			items.forEach((item) => {
 				console.log(item.embedding);
 				// Assuming the embedding has been scaled or mapped appropriately to fit the canvas dimensions
-				const x = item.embedding[0] * 30000; // Use the first dimension for x-coordinate
-				const y = item.embedding[1] * 30000; // Use the second dimension for y-coordinate
+				const x = item.embedding[0] * upscaleSize; // Use the first dimension for x-coordinate
+				const y = item.embedding[1] * upscaleSize; // Use the second dimension for y-coordinate
 				console.log(`drawing: ${x}, ${y}`);
 				ctx?.beginPath();
 				ctx?.arc(x, y, 5, 0, 2 * Math.PI); // Draw a dot
@@ -88,13 +91,14 @@
 
 	const handleMouseMove = (event: MouseEvent) => {
 		const rect = canvas?.getBoundingClientRect();
-		const x = event.clientX - (rect?.left || 0);
-		const y = event.clientY - (rect?.top || 0);
+		const x = (event.clientX - (rect?.left || 0));
+		const y = (event.clientY - (rect?.top || 0));
+		console.log(`mouse is at (${x},${y})`)
 
 		texts.subscribe((items) => {
 			items.forEach((item) => {
-				const dotX = item.embedding[0] * 30000;
-				const dotY = item.embedding[1] * 30000;
+				const dotX = item.embedding[0] * upscaleSize;
+				const dotY = item.embedding[1] * upscaleSize;
 
 				// Check if the mouse is over the dot
 				if (Math.sqrt((x - dotX) ** 2 + (y - dotY) ** 2) < 5) {
